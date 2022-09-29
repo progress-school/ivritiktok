@@ -28,8 +28,9 @@ gtag('config', 'G-FK8NQLELB9');
 
 
 
+
     </script>
-    
+
     <link rel="stylesheet" type="text/css"
           href="https://cdn.jsdelivr.net/gh/vaakash/socializer@2f749eb/css/socializer.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
@@ -50,7 +51,7 @@ gtag('config', 'G-FK8NQLELB9');
                     <textarea class="form-control" id="input-text" rows="3" autofocus></textarea>
                     <button id="send-button" class="btn btn-primary btn-block btn-lg" type="submit">שליחה</button>
                 </div>
-                <p class="text text-info">התוצאה לא מדויקת? מומלץ לנקד באמצעות <a
+                <p class="text text-info">כדי לקבל תוצאה מדויקת ומהירה מומלץ לנקד באמצעות <a
                         href="https://nakdanlive.dicta.org.il/" target="_blank" title="נקדן דיקטה">דיקטה</a></p>
                 <div id="loading" class="hidden">
                     <div class="spinner-grow" role="status">
@@ -60,7 +61,8 @@ gtag('config', 'G-FK8NQLELB9');
                 <div id="result-group" class="form-group hidden">
                     <label for="result-text">תוצאה</label>
                     <textarea class="form-control" id="result-text" rows="3"></textarea>
-                    <button class="w-200 btn btn-success btn-lg btn-block" onclick="copyResult()">העתקה</button>
+                    <button type="button" class="w-200 btn btn-success btn-lg btn-block" onclick="copyResult()">העתקה
+                    </button>
                     <p id="success-message" class="text text-success hidden">הועתק בהצלחה</p>
                 </div>
             </form>
@@ -121,6 +123,7 @@ gtag('config', 'G-FK8NQLELB9');
               }
             });
         }
+
 
 
 
