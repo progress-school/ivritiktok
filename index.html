@@ -66,7 +66,7 @@
             buttonEl.disabled = true;
             loadingEl.classList.remove("hidden");
             resultGroupEl.classList.add("hidden");
-            fetch('https://hebrew-phoneti-prod-nikkuder-1rm121.mo1.mogenius.io:80/to-english?text='+encodeURIComponent(inputEl.value))
+            fetch('https://hebrew-phoneti-prod-nikkuder-1rm121.mo1.mogenius.io/to-english?text='+encodeURIComponent(inputEl.value))
               .then((response) => {
                 if (response.status !== 200) {
                     throw new Error("שגיאת שרת, נסו שוב מאוחר יותר!");
