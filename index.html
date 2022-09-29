@@ -35,6 +35,8 @@
                     <textarea class="form-control" id="input-text" rows="3" autofocus></textarea>
                     <button id="send-button" class="btn btn-primary btn-block btn-lg" type="submit">שליחה</button>
                 </div>
+                <p class="text text-info">התוצאה לא מדויקת? מומלץ לנקד באמצעות <a
+                        href="https://nakdanlive.dicta.org.il/" target="_blank" title="נקדן דיקטה">דיקטה</a></p>
                 <div id="loading" class="hidden">
                     <div class="spinner-grow" role="status">
                         <span class="visually-hidden">רק רגע...</span>
@@ -44,7 +46,7 @@
                     <label for="result-text">תוצאה</label>
                     <textarea class="form-control" id="result-text" rows="3"></textarea>
                     <button class="w-200 btn btn-success btn-lg btn-block" onclick="copyResult()">העתקה</button>
-                    <p id="success-message" class="text hidden">הועתק בהצלחה</p>
+                    <p id="success-message" class="text text-success hidden">הועתק בהצלחה</p>
                 </div>
             </form>
         </div>
@@ -98,10 +100,6 @@
               }
             });
         }
-
-
-
-
     </script>
 </div>
 </body>
