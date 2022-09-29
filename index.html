@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="הקראה בטיקטוק בעברית">
+    <title>טיקטוק בעברית</title>
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Favicons -->
+    <link rel="icon" href="/docs/5.2/assets/img/favicons/favicon.ico">
+
+</head>
+<body class="bg-light">
+
+<div class="container">
+    <main>
+        <div class="py-5 text-center">
+            <h2>כותבים בטיקטוק בעברית</h2>
+            <p class="lead">כתבו את טקסט והעתיקו את התוצאה לטיקטוק כדי להקריא בעברית</p>
+        </div>
+
+        <div class="row g-3">
+            <form id="main-form">
+                <div class="form-group">
+                    <label for="input-text">טקסט בעברית</label>
+                    <textarea class="form-control" id="input-text" rows="3" autofocus></textarea>
+                    <button id="send-button" class="btn btn-primary btn-block btn-lg" type="submit">שליחה</button>
+                </div>
+                <div id="loading" class="hidden">
+                    <div class="spinner-grow" role="status">
+                        <span class="visually-hidden">רק רגע...</span>
+                    </div>
+                </div>
+                <div id="result-group" class="form-group hidden">
+                    <label for="result-text">תוצאה</label>
+                    <textarea class="form-control" id="result-text" rows="3"></textarea>
+                    <button class="w-200 btn btn-success btn-lg btn-block" onclick="copyResult()">העתקה</button>
+                    <p id="success-message" class="text hidden">הועתק בהצלחה</p>
+                </div>
+            </form>
+        </div>
+    </main>
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; Progress School 2022</p>
+    </footer>
+    <script>
+        let mainForm = document.getElementById("main-form");
+        let inputEl = document.getElementById("input-text");
+        let outputEl = document.getElementById("result-text");
+        let resultGroupEl = document.getElementById("result-group");
+        let loadingEl = document.getElementById("loading");
+        let buttonEl = document.getElementById("send-button");
+
+        mainForm.addEventListener('submit', (event) => {
+            buttonEl.disabled = true;
+            loadingEl.classList.remove("hidden");
+            resultGroupEl.classList.add("hidden");
+            fetch('/to-english?text='+encodeURIComponent(inputEl.value))
+              .then((response) => {
+                if (response.status !== 200) {
+                    throw new Error("שגיאת שרת, נסו שוב מאוחר יותר!");
+                }
+                return response.text()
+              })
+              .then((data) => {
+                buttonEl.disabled = false;
+                loadingEl.classList.add("hidden");
+                outputEl.value = data.replace(/^<result>/, "").replace(/<\/result>$/, "");
+                resultGroupEl.classList.remove("hidden");
+              }).catch((e) => {
+                buttonEl.disabled = false;
+                alert("שגיאה!");
+              });
+            event.preventDefault();
+        });
+
+        function copyResult() {
+            let newClip = outputEl.value;
+            navigator.permissions.query({name: "clipboard-write"}).then((result) => {
+              if (result.state === "granted" || result.state === "prompt") {
+                  navigator.clipboard.writeText(newClip).then(() => {
+                    document.getElementById("success-message").classList.remove("hidden");
+                    setTimeout(() => {
+                        document.getElementById("success-message").classList.add("hidden");
+                    }, 5000);
+                  }, () => {
+                    alert("לא הצלחנו להעתיק. נסו להעתיק ידנית.");
+                  });
+              }
+            });
+        }
+
+
+
+
+    </script>
+</div>
+</body>
+</html>
