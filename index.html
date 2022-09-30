@@ -29,6 +29,8 @@ gtag('config', 'G-FK8NQLELB9');
 
 
 
+
+
     </script>
 
     <link rel="stylesheet" type="text/css"
@@ -89,24 +91,28 @@ gtag('config', 'G-FK8NQLELB9');
             buttonEl.disabled = true;
             loadingEl.classList.remove("hidden");
             resultGroupEl.classList.add("hidden");
-            fetch('https://hebrew-phoneti-prod-nikkuder-1rm121.mo1.mogenius.io/to-english?text='+encodeURIComponent(inputEl.value))
-              .then((response) => {
+            fetch('https://tiktok-ivrit-server-xzkm4vhymq-ew.a.run.app/to-english?text='+encodeURIComponent(inputEl.value))
+              .then(async (response) => {
                 if (response.status !== 200) {
-                    throw new Error("שגיאת שרת, נסו שוב מאוחר יותר!");
+                    throw new Error("שגיאה: " + await response.text());
                 }
-                return response.text()
+                return response.text();
               })
               .then((data) => {
-                buttonEl.disabled = false;
-                loadingEl.classList.add("hidden");
+                onProcessDone();
                 outputEl.value = data.replace(/^<result>/, "").replace(/<\/result>$/, "");
                 resultGroupEl.classList.remove("hidden");
               }).catch((e) => {
-                buttonEl.disabled = false;
-                alert("שגיאה!");
+                onProcessDone();
+                alert(e.message);
               });
             event.preventDefault();
         });
+
+        function onProcessDone() {
+            loadingEl.classList.add("hidden");
+            buttonEl.disabled = false;
+        }
 
         function copyResult() {
             let newClip = outputEl.value;
@@ -123,12 +129,6 @@ gtag('config', 'G-FK8NQLELB9');
               }
             });
         }
-
-
-
-
-
-
 
     </script>
 </div>
